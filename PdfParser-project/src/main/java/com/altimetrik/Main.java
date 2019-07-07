@@ -5,16 +5,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import com.altimetrik.constant.Data;
-import com.altimetrik.controller.ValidatingMailInterface.ListoutPdfData;
-import com.altimetrik.controller.ValidatingMailInterface.ValidatePdfStatus;
-import com.altimetrik.controller.emailAttachment.ReceiveEmailWithAttachment;
-import com.altimetrik.controller.sendMailApproval.SendingApprovalMail;
-import com.altimetrik.service.JDBC_Connection.JdbcConnection;
-import com.altimetrik.service.approvingMail.ApprovingMail;
-import com.altimetrik.service.readPdfData.ReadingPdfData;
-import com.altimetrik.service.readPdfText.ReadingPdfText;
-import com.altimetrik.view.DisplayData;
+import com.altimetrik.DAO.JdbcConnection;
+import com.altimetrik.constant.HelperData;
+import com.altimetrik.controller.ReceiveEmailWithAttachment;
+import com.altimetrik.controller.SendingApprovalMail;
+import com.altimetrik.controller.validateinterface.ListoutPdfData;
+import com.altimetrik.controller.validateinterface.ValidatePdfStatus;
+import com.altimetrik.service.ApprovingMail;
+import com.altimetrik.service.ReadingPdfData;
+import com.altimetrik.service.ReadingPdfText;
+import com.altimetrik.view.ViewData;
 
 public class Main {
 	public static String text;
@@ -22,12 +22,12 @@ public class Main {
 	public static void main(String args[]) throws IOException, SQLException {
 		boolean flag = false;
 		Statement st = null;
-		String pop3Host = Data.pop3Host;
-		String mailStoreType = Data.mailStoreType;
-		final String userName = Data.userName;
-		final String password = Data.password;
+		String pop3Host = HelperData.pop3Host;
+		String mailStoreType = HelperData.mailStoreType;
+		final String userName = HelperData.userName;
+		final String password = HelperData.password;
 
-		ListoutPdfData displayData = new DisplayData();
+		ListoutPdfData displayData = new ViewData();
 		ValidatePdfStatus validateStatus = new ApprovingMail();
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
@@ -48,21 +48,22 @@ public class Main {
 
 				text = ReadingPdfText.readPdfText();
 				ReadingPdfData readData = new ReadingPdfData();
-				st = JdbcConnection.connectDB(readData.findInvoiceNo(Data.invoiceNo),
-						readData.findInvoiceDate(Data.invoiceDate), readData.findCustomerPO(Data.customerPO),
-						readData.findAddress(Data.address), readData.findTotalInvoice(Data.totalInvoice));
+				st = JdbcConnection.connectDB(readData.findInvoiceNo(HelperData.invoiceNo),
+						readData.findInvoiceDate(HelperData.invoiceDate),
+						readData.findCustomerPO(HelperData.customerPO), readData.findAddress(HelperData.address),
+						readData.findTotalInvoice(HelperData.totalInvoice));
 				flag = true;
 				break;
 			case 2:
 				displayData.listAllPdfData(st);
 				break;
 			case 3:
-				System.out.println(Data.enterInvoiceNo);
+				System.out.println(HelperData.enterInvoiceNo);
 				String invoiceNo = sc.next();
 				displayData.listDataWithIndividual(invoiceNo, st);
 				break;
 			case 4:
-				System.out.println(Data.enterInvoiceNo);
+				System.out.println(HelperData.enterInvoiceNo);
 				String invoiceNumber = sc.next();
 				System.out.println("Either Approved or Rejected...");
 				String status = sc.next().toLowerCase();
