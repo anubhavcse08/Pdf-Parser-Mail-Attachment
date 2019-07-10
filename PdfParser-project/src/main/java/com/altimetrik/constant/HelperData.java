@@ -10,8 +10,8 @@ public class HelperData {
 	
 	public final static String pop3Host = "pop.gmail.com";
 	public final static String mailStoreType = "pop3";
-	public final static String userName = "pdfparser12345@gmail.com";
-	public final static String password = "pdfparser@123";
+	public final static String userName = "*********@gmail.com";
+	public final static String password = "**********";
 	
 	public final static String invoiceNo = "Invoice No";
 	public final static String invoiceDate = "Invoice Date";
@@ -20,8 +20,8 @@ public class HelperData {
 	public final static String totalInvoice = "Invoices not paid";
 	
 	public final static String dbURL = "jdbc:oracle:thin:@localhost:1521:xe";
-	public final static String dbUserName = "system";
-	public final static String dbPassword = "12345";
+	public final static String dbUserName = "******";
+	public final static String dbPassword = "******";
 	public final static String oracleJDBC = "oracle.jdbc.driver.OracleDriver";
 	
 	public final static String enterInvoiceNo = "Enter the Invoice no : ";
